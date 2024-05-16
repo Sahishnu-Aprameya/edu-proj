@@ -1,0 +1,94 @@
+<p>There are three types of bindings in angular:</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Data Binding</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>One-way data binding</td>
+            <td>From Component to View template</td>
+        </tr>
+        <tr>
+            <td>One-way data binding</td>
+            <td>From View template to Component</td>
+        </tr>
+        <tr>
+            <td>Two-way data binding</td>
+            <td>Both from View to Component and from Component to View</td>
+        </tr>
+    </tbody>
+</table>
+
+<br /><br />
+
+<h2>Interpolation:</h2>
+<p>
+    Looking at Interpolation, which is a one way binding that flows from component
+    to the view:
+</p>
+
+<h3>String operations:</h3>
+<p>
+    This text here: <span title="Interpolated text">{{ interpolationExample }}</span>, is being displayed through
+    interpolation. It is not
+    hard-coded into the
+    html, but instead is a string declared in the typescript of this component.
+    <br /><br />
+
+    Interpolation is coded using double flower braces, with the variable in them.
+    We can also insert strings into the interpolation syntax. <br />
+    For example:
+    <span title="String-Interpolation combo">{{
+        "This text is interpolated: " + interpolationExample
+        }}</span>
+    <br /><br />
+</p>
+
+<h3>Arithmetic:</h3>
+<p>
+
+    But wait, theres more! You can even perform arithmetic operations within
+    interpolation syntax. 100 + 200 + 300 =
+    <span title="100 + 200 + 300">{{ 100 + 200 + 300 }}</span> <br />
+    <br />
+</p>
+
+<h3>Ternary Operator:</h3>
+<p>
+    Conditional operators or ternary operators can also be employed in interpolation. <br> In the following example, we
+    check
+    if a variable exists and if it does, we bring it to the view via interpolation. <br><br>
+
+    This variable exists: <span title="interpolationExample? interpolationExample : No.">{{interpolationExample?
+        interpolationExample : "No."}}</span><br>
+    This variable does not exist: <span title="noInterpolationExample? noInterpolationExample: No variable :/">{{
+        noInterpolationExample? noInterpolationExample: "No variable :/"}}</span><br><br>
+
+    PS: Hover over highlighted text for tips. <br><br>
+</p>
+
+<h3>Images:</h3>
+<p>
+    We can also display images, by specifying the image path via interpolation. <br><br>
+
+    <img src="{{imgSourceUrl}}" title="The image url was copied and saved in a variable, which was interpolated." />
+</p>
+
+<h3>Functions:</h3>
+<p>
+    Interpolation can also be used to display the return object of a function. For example, this function will
+    concatenate two strings, which have been stored in variables. <br><br>
+
+    First name: <span>{{firstName}}</span>, 
+    Last name: <span>{{lastName}}</span> <br><br>
+
+    Full name: <span title="return `${this.firstName} ${this.lastName}`">{{getFullName()}}</span>
+</p>
+
+<h2>Property Binding:</h2>
+<p>Property binding also works the same way as Interpolation, transporting data from component class properties to view element properties</p> <br><br>
+

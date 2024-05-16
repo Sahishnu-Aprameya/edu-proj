@@ -1,0 +1,13 @@
+table,
+th,
+td {
+  border: 1px solid;
+}
+
+span {
+  font-style: italic;
+  color: green;
+  &:hover {
+    color: blue;
+  }
+}
