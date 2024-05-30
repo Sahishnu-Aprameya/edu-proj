@@ -3,9 +3,30 @@
         <label for="nav">Links</label>
         <button class="redir" routerLink="/disp1">disp1</button>
         <button class="redir" routerLink="/disp2">disp2</button>
+        <button class="gen" (click)="genAndAssignVals()">Gen</button>
     </nav>
 
+    <div class="stats-bar">
+        <div class="ceiling-val">Ceiling Value: {{genCeiling}}</div>
+    </div>
+    
     <div class="the-box">
-        <router-outlet></router-outlet>
+        <div class="the-box-main-val">
+            <div class="main-val">
+                {{principalValue}}
+            </div>
+        </div>
+        <div class="log-box" #scroll>
+            <div class="log-messages" *ngFor="let entry of logBoxArray">
+                <p>{{entry}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-box">
+        <div class="button" *ngFor="let value of derivedValues">
+            <button class="randButton" [id]="derivedValues.indexOf(value)" (click)="activateVal($event)">X</button>
+        </div>
     </div>
 </div>
+
