@@ -5,10 +5,7 @@ import { RouterLink } from '@angular/router';
 import { max } from 'rxjs';
 
 /**
- * TODO:update comments
- * TODO:Add option to increase totalFactor
- * TODO:Make it so that if they choose the highest number, genCEil is incremented by said num,
- * and if they select the lowest number, genCeil is decremented by thatt value.
+ * TODO:
  */
 
 @Component({
@@ -63,7 +60,7 @@ export class BoxComponent {
   }
 
   /**
-   * This function takes the value of the button(saved in button id via html), and adds it to the total
+   * @description This function takes the value of the button(saved in button id via html), and adds it to the total
    * factor
    * @param event 
    */
@@ -81,15 +78,28 @@ export class BoxComponent {
       }
   
       if(selectedValue == Math.min(...this.derivedValues)){
-        this.onMinEvent(selectedValue);
+        this.onMinEvent();
       }
     } 
+
+    if(this.derivedValues.length == 1){
+      if(selectedValue == 1){
+        //trigger 1 event
+      }else{
+        this.onPerfectEvent();
+      }
+    }
 
     this.genAndAssignVals();
     this.scrollToBottom();
   }
 
-  derivedValuesShuffler(arr: number[]){
+  /**
+   * @description Shuffles given array.
+   * @param arr 
+   * @returns number[]
+   */
+  derivedValuesShuffler(arr: number[]): number[]{
     const arrTemp = arr;
     for (let i = arrTemp.length - 1; i > 0; i--) { 
       const j = Math.floor(Math.random() * (i + 1)); 
@@ -98,7 +108,12 @@ export class BoxComponent {
     return arrTemp; 
   }
 
-  derivedValuesStringifier(arr: number[]){
+  /**
+   * @description Creates a string version of the array.
+   * @param arr 
+   * @returns 
+   */
+  derivedValuesStringifier(arr: number[]): string{
     var a: string = "";
     const arrTemp = this.derivedValuesShuffler(arr);
 
@@ -111,14 +126,24 @@ export class BoxComponent {
     return a;
   }
 
+  /**
+   * @description Displays the choice of numbers user can select from.
+   * @param stringifiedDerivedValues 
+   */
   genPreChoiceLog(stringifiedDerivedValues: string){
     this.logBoxArray.push("You are choosing one of these numbers: " + stringifiedDerivedValues);
   }
 
+  /**
+   * @description Clears the choice text, making way for the display text that shows the chosen number.
+   */
   clearPreChoiceLog(){
     this.logBoxArray.pop();
   }
 
+  /**
+   * @description Displays what number the user has selected, out of possible choices.
+   */
   genPostChoiceLog(buttonId: string, stringifiedDerivedValues: string){
     
     var buttonIdNumber = parseInt(buttonId);
@@ -127,6 +152,9 @@ export class BoxComponent {
     console.log(this.logBoxArray[0])
   }
 
+  /**
+   * @description Scroll utility.
+   */
   scrollToBottom(): void {
     if (this.scrollContainer) {
       try {
@@ -139,14 +167,40 @@ export class BoxComponent {
     }
   }
 
+  /**
+   * @description Awards player by incrementing ceiling value when they choose highest value.
+   * @param max 
+   */
   onMaxEvent(max: number){
     this.genCeiling += max;
-    this.logBoxArray.push(`You selected the highest value! The ceiling value has been incremented by ${max}`);
+    this.logBoxArray.push(`You selected the highest value! The ceiling value has been incremented by ${max}!`);
   }
 
-  onMinEvent(min: number){
-    this.genCeiling -= min;
-    this.logBoxArray.push(`You selected the lowest value! The ceiling value has been incremented by ${min}`);
+  /**
+   * @description Punishes player when they select the lowest value by quartering veiling value.
+   */
+  onMinEvent(){
+    this.genCeiling = this.genCeiling/4;
+    this.genCeiling = Math.round(this.genCeiling);
+    this.logBoxArray.push(`You selected the lowest value! The ceiling value has been quartered!`);
+  }
+
+  /**
+   * @description Upon player getting lucky and drawing only one choice, i.e. the ceiling val, 
+   * they are awarded and the ceiling value is squared.
+   */
+  onPerfectEvent(){
+    this.genCeiling *= this.genCeiling;
+    this.logBoxArray.push(`You got lucky! The ceiling value has been squared!`);
+  }
+
+  /**
+   * @description Application was looping when ceiling value was set to 1, this function handles that by
+   * giving the player grace.
+  */
+  onOneEvent(){
+    this.genCeiling += 5;
+    this.logBoxArray.push("You have gotten really unlucky huh, here take 5 :)")
   }
 
 }
